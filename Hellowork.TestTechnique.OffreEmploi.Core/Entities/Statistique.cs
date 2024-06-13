@@ -7,13 +7,13 @@
     {
         public Dictionary<string, int> TypeContrat { get; set; }
         public Dictionary<string, int> Entreprise { get; set; }
-        public Dictionary<string, int> Pays { get; set; }
+        public Dictionary<string, int> Commune { get; set; }
 
         public Statistique()
         {
             TypeContrat = new Dictionary<string, int>();
             Entreprise = new Dictionary<string, int>();
-            Pays = new Dictionary<string, int>();
+            Commune = new Dictionary<string, int>();
         }
     }
 }

@@ -14,7 +14,7 @@ namespace Hellowork.TestTechnique.OffreEmploi.Core.Entities
         public string Id { get; set; }
         public required string TypeContrat { get; set; }
         public required string Entreprise { get; set; }
-        public required string Pays { get; set; }
+        public required string Commune { get; set; }
         public required string Description { get; set; }
         public required string LienPostuler { get; set; }
     }

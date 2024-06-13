@@ -29,11 +29,17 @@ namespace Hellowork.TestTechnique.OffreEmploi.Core.Business.Impl
         /// <returns></returns>
         public async Task GetOffreEmploiFranceTravail(string codeInsee)
         {
-            var offres = offreEmploiFranceTravailRepository.GetOffreByCodeInsee(codeInsee);
+            var offres = await offreEmploiFranceTravailRepository.GetOffreByCodeInsee(codeInsee).ConfigureAwait(false);
             foreach (var offre in offres)
             {
-                // Todo : Vérifier l'unicité par l'ID
+                var existingOffre = await offreEmploiRepository.GetByIdAsync(offre.Id).ConfigureAwait(false);
+                if (existingOffre != null)
+                {
+                    // Si on arrive dans les offres déja présente en local, on arrête la mise à jour
+                    break;
+                }
                 await offreEmploiRepository.AddAsync(offre).ConfigureAwait(false);
+
             }
         }
 
@@ -48,36 +54,48 @@ namespace Hellowork.TestTechnique.OffreEmploi.Core.Business.Impl
 
             foreach (var offre in offres)
             {
+                string typeContrat = offre.TypeContrat ?? "Inconnu";
+                string entreprise = offre.Entreprise ?? "Inconnue";
+                string commune = offre.Commune ?? "Inconnue";
+
                 // Compter les types de contrat
-                if (statistiques.TypeContrat.ContainsKey(offre.TypeContrat))
+                if (statistiques.TypeContrat.ContainsKey(typeContrat))
                 {
-                    statistiques.TypeContrat[offre.TypeContrat]++;
+                    statistiques.TypeContrat[typeContrat]++;
                 }
                 else
                 {
-                    statistiques.TypeContrat[offre.TypeContrat] = 1;
+                    statistiques.TypeContrat[typeContrat] = 1;
                 }
 
                 // Compter les entreprises
-                if (statistiques.Entreprise.ContainsKey(offre.Entreprise))
+                if (statistiques.Entreprise.ContainsKey(entreprise))
                 {
-                    statistiques.Entreprise[offre.Entreprise]++;
+                    statistiques.Entreprise[entreprise]++;
                 }
                 else
                 {
-                    statistiques.Entreprise[offre.Entreprise] = 1;
+                    statistiques.Entreprise[entreprise] = 1;
                 }
 
                 // Compter les pays
-                if (statistiques.Pays.ContainsKey(offre.Pays))
+                if (statistiques.Commune.ContainsKey(commune))
                 {
-                    statistiques.Pays[offre.Pays]++;
+                    statistiques.Commune[commune]++;
                 }
                 else
                 {
-                    statistiques.Pays[offre.Pays] = 1;
+                    statistiques.Commune[commune] = 1;
                 }
             }
+
+            // Trier les statistiques par ordre décroissant
+            statistiques.TypeContrat = statistiques.TypeContrat.OrderByDescending(pair => pair.Value)
+                                                                         .ToDictionary(pair => pair.Key, pair => pair.Value);
+            statistiques.Entreprise = statistiques.Entreprise.OrderByDescending(pair => pair.Value)
+                                                                       .ToDictionary(pair => pair.Key, pair => pair.Value);
+            statistiques.Commune = statistiques.Commune.OrderByDescending(pair => pair.Value)
+                                                           .ToDictionary(pair => pair.Key, pair => pair.Value);
 
             return statistiques;
         }

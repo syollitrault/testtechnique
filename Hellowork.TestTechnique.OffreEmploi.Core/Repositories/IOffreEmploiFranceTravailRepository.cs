@@ -12,6 +12,6 @@ namespace Hellowork.TestTechnique.OffreEmploi.Core.Repositories
         /// </summary>
         /// <param name="codeInsee"></param>
         /// <returns></returns>
-        public IEnumerable<Offre> GetOffreByCodeInsee(string codeInsee);
+        public Task<IEnumerable<Offre>> GetOffreByCodeInsee(string codeInsee);
     }
 }

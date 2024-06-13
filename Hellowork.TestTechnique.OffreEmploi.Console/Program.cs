@@ -27,7 +27,29 @@ namespace Hellowork.TestTechnique.OffreEmploi.Console
 
                     // Peupler la base de données
                     var offreEmploiService = services.GetRequiredService<IOffreEmploiService>();
-                    offreEmploiService.GetOffreEmploiFranceTravail("35238").Wait(); // Test pour Rennes / Attente resultats pour les statistiques
+                    // Attente resultats pour les statistiques
+                    offreEmploiService.GetOffreEmploiFranceTravail("35238").Wait(); // Rennes
+                    offreEmploiService.GetOffreEmploiFranceTravail("75101").Wait(); // Paris
+                    offreEmploiService.GetOffreEmploiFranceTravail("75102").Wait(); // Paris
+                    offreEmploiService.GetOffreEmploiFranceTravail("75103").Wait(); // Paris
+                    offreEmploiService.GetOffreEmploiFranceTravail("75104").Wait(); // Paris
+                    offreEmploiService.GetOffreEmploiFranceTravail("75105").Wait(); // Paris
+                    offreEmploiService.GetOffreEmploiFranceTravail("75106").Wait(); // Paris
+                    offreEmploiService.GetOffreEmploiFranceTravail("75107").Wait(); // Paris
+                    offreEmploiService.GetOffreEmploiFranceTravail("75108").Wait(); // Paris
+                    offreEmploiService.GetOffreEmploiFranceTravail("75109").Wait(); // Paris
+                    offreEmploiService.GetOffreEmploiFranceTravail("75110").Wait(); // Paris
+                    offreEmploiService.GetOffreEmploiFranceTravail("75111").Wait(); // Paris
+                    offreEmploiService.GetOffreEmploiFranceTravail("75112").Wait(); // Paris
+                    offreEmploiService.GetOffreEmploiFranceTravail("75113").Wait(); // Paris
+                    offreEmploiService.GetOffreEmploiFranceTravail("75114").Wait(); // Paris
+                    offreEmploiService.GetOffreEmploiFranceTravail("75115").Wait(); // Paris
+                    offreEmploiService.GetOffreEmploiFranceTravail("75116").Wait(); // Paris
+                    offreEmploiService.GetOffreEmploiFranceTravail("75117").Wait(); // Paris
+                    offreEmploiService.GetOffreEmploiFranceTravail("75118").Wait(); // Paris
+                    offreEmploiService.GetOffreEmploiFranceTravail("75119").Wait(); // Paris
+                    offreEmploiService.GetOffreEmploiFranceTravail("75120").Wait(); // Paris
+                    offreEmploiService.GetOffreEmploiFranceTravail("33063").Wait(); // Bordeaux
 
                     // Calculer et afficher le rapport
                     var statistiques = offreEmploiService.ComputeStatistiques().Result;
@@ -43,13 +65,12 @@ namespace Hellowork.TestTechnique.OffreEmploi.Console
                         System.Console.WriteLine($"{entry.Key}: {entry.Value}");
                     }
                     System.Console.WriteLine(string.Empty);
-                    System.Console.WriteLine("Statistiques des Pays:");
-                    foreach (var entry in statistiques.Pays)
+                    System.Console.WriteLine("Statistiques des Communes:");
+                    foreach (var entry in statistiques.Commune)
                     {
                         System.Console.WriteLine($"{entry.Key}: {entry.Value}");
                     }
                 }
-                System.Console.ReadLine();
             }
             catch (Exception e)
             {

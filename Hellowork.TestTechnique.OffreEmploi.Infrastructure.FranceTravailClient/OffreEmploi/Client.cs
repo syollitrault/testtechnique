@@ -111,7 +111,7 @@ namespace Hellowork.TestTechnique.OffreEmploi.Infrastructure.FranceTravailClient
         /// <param name="entreprisesAdaptees">Filtre sur les offres dont les entreprises sont adaptées</param>
         /// <returns>L'offre a été recupérée avec succès</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<Offre> RecupererListeOffreAsync(string range, string sort, string domaine, string codeROME, string appellation, string theme, string secteurActivite, string codeNAF, string experience, string typeContrat, string natureContrat, string qualification, bool? tempsPlein, string commune, long? distance, string departement, bool? inclureLimitrophes, string region, string paysContinent, string niveauFormation, string permis, string motsCles, string salaireMin, string periodeSalaire, bool? accesTravailleurHandicape, long? publieeDepuis, string minCreationDate, string maxCreationDate, bool? offresMRS, string experienceExigence, string partenaires, string modeSelectionPartenaires, string dureeHebdoMin, string dureeHebdoMax, string dureeContratMax, string dureeContratMin, string dureeHebdo_, bool? offresManqueCandidats, bool? entreprisesAdaptees, string authorization)
+        public virtual System.Threading.Tasks.Task<RecupererListeOffreResult> RecupererListeOffreAsync(string range, string sort, string domaine, string codeROME, string appellation, string theme, string secteurActivite, string codeNAF, string experience, string typeContrat, string natureContrat, string qualification, bool? tempsPlein, string commune, long? distance, string departement, bool? inclureLimitrophes, string region, string paysContinent, string niveauFormation, string permis, string motsCles, string salaireMin, string periodeSalaire, bool? accesTravailleurHandicape, long? publieeDepuis, string minCreationDate, string maxCreationDate, bool? offresMRS, string experienceExigence, string partenaires, string modeSelectionPartenaires, string dureeHebdoMin, string dureeHebdoMax, string dureeContratMax, string dureeContratMin, string dureeHebdo_, bool? offresManqueCandidats, bool? entreprisesAdaptees, string authorization)
         {
             return RecupererListeOffreAsync(range, sort, domaine, codeROME, appellation, theme, secteurActivite, codeNAF, experience, typeContrat, natureContrat, qualification, tempsPlein, commune, distance, departement, inclureLimitrophes, region, paysContinent, niveauFormation, permis, motsCles, salaireMin, periodeSalaire, accesTravailleurHandicape, publieeDepuis, minCreationDate, maxCreationDate, offresMRS, experienceExigence, partenaires, modeSelectionPartenaires, dureeHebdoMin, dureeHebdoMax, dureeContratMax, dureeContratMin, dureeHebdo_, offresManqueCandidats, entreprisesAdaptees, authorization, System.Threading.CancellationToken.None);
         }
@@ -163,7 +163,7 @@ namespace Hellowork.TestTechnique.OffreEmploi.Infrastructure.FranceTravailClient
         /// <param name="entreprisesAdaptees">Filtre sur les offres dont les entreprises sont adaptées</param>
         /// <returns>L'offre a été recupérée avec succès</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<Offre> RecupererListeOffreAsync(string range, string sort, string domaine, string codeROME, string appellation, string theme, string secteurActivite, string codeNAF, string experience, string typeContrat, string natureContrat, string qualification, bool? tempsPlein, string commune, long? distance, string departement, bool? inclureLimitrophes, string region, string paysContinent, string niveauFormation, string permis, string motsCles, string salaireMin, string periodeSalaire, bool? accesTravailleurHandicape, long? publieeDepuis, string minCreationDate, string maxCreationDate, bool? offresMRS, string experienceExigence, string partenaires, string modeSelectionPartenaires, string dureeHebdoMin, string dureeHebdoMax, string dureeContratMax, string dureeContratMin, string dureeHebdo_, bool? offresManqueCandidats, bool? entreprisesAdaptees, string authorization, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<RecupererListeOffreResult> RecupererListeOffreAsync(string range, string sort, string domaine, string codeROME, string appellation, string theme, string secteurActivite, string codeNAF, string experience, string typeContrat, string natureContrat, string qualification, bool? tempsPlein, string commune, long? distance, string departement, bool? inclureLimitrophes, string region, string paysContinent, string niveauFormation, string permis, string motsCles, string salaireMin, string periodeSalaire, bool? accesTravailleurHandicape, long? publieeDepuis, string minCreationDate, string maxCreationDate, bool? offresMRS, string experienceExigence, string partenaires, string modeSelectionPartenaires, string dureeHebdoMin, string dureeHebdoMax, string dureeContratMax, string dureeContratMin, string dureeHebdo_, bool? offresManqueCandidats, bool? entreprisesAdaptees, string authorization, System.Threading.CancellationToken cancellationToken)
         {
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -366,7 +366,7 @@ namespace Hellowork.TestTechnique.OffreEmploi.Infrastructure.FranceTravailClient
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<Offre>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            var objectResponse_ = await ReadObjectResponseAsync<RecupererListeOffreResult>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
@@ -378,6 +378,16 @@ namespace Hellowork.TestTechnique.OffreEmploi.Infrastructure.FranceTravailClient
                         {
                             string responseText_ = ( response_.Content == null ) ? string.Empty : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
                             throw new ApiException("Aucune offre correspondante", status_, responseText_, headers_, null);
+                        }
+                        else
+                        if (status_ == 206)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<RecupererListeOffreResult>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
                         }
                         else
                         if (status_ == 400)
