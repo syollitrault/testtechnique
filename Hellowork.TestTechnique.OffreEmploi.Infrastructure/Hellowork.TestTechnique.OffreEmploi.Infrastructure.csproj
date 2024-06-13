@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="IdentityModel" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="8.0.0" />
+    <PackageReference Include="MongoDB.Driver" Version="2.26.0" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.6.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Hellowork.TestTechnique.OffreEmploi.Core\Hellowork.TestTechnique.OffreEmploi.Core.csproj" />
+    <ProjectReference Include="..\Hellowork.TestTechnique.OffreEmploi.Infrastructure.FranceTravailClient\Hellowork.TestTechnique.OffreEmploi.Infrastructure.FranceTravailClient.csproj" />
+  </ItemGroup>
+
+</Project>
